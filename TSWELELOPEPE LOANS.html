@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoanMarket Pro | Official Loan Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --light: #ffffff;
+            --dark: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #94a3b8;
+            --background: #f1f5f9;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --header-height: 80px;
+        }
+
+        .dark-theme {
+            --background: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: var(--light);
+            background: var(--accent);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a i {
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(15deg);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            padding: 2rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 1rem;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-title span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-card i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            background: rgba(37, 99, 235, 0.1);
+            width: 90px;
+            height: 90px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .calculator-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 0.8rem;
+        }
+
+        .range-value {
+            min-width: 70px;
+            text-align: center;
+            background: var(--background);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid var(--border);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .result-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .loan-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .loan-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .loan-header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 1.8rem;
+            text-align: center;
+        }
+
+        .loan-body {
+            padding: 2.5rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loan-features {
+            list-style: none;
+            margin: 2rem 0;
+            flex-grow: 1;
+        }
+
+        .loan-features li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .loan-features li i {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .lenders-section {
+            background: var(--background);
+        }
+
+        .lenders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .lender-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .lender-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .lender-header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .lender-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 4px solid white;
+            overflow: hidden;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .lender-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lender-body {
+            padding: 2.5rem;
+        }
+
+        .lender-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .lender-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 5rem;
+            color: rgba(37, 99, 235, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.8rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .testimonial-rating {
+            color: var(--warning);
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.2rem;
+            background: rgba(37, 99, 235, 0.03);
+        }
+
+        .faq-answer {
+            padding: 0 1.8rem 1.8rem;
+            display: none;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .application-form {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 1.8rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a i {
+            width: 20px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--secondary);
+        }
+
+        @media (max-width: 992px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 6rem 5% 4rem;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn-outline {
+                margin: 1rem 0 0 0;
+                display: block;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 2.8rem;
+            }
+            
+            .section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>LoanMarket Pro</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home"><i class="fas fa-home"></i> Home</a>
+                <a href="#calculator"><i class="fas fa-calculator"></i> Calculator</a>
+                <a href="#loans"><i class="fas fa-file-invoice-dollar"></i> Loans</a>
+                <a href="#lenders"><i class="fas fa-user-tie"></i> Lenders</a>
+                <a href="#apply"><i class="fas fa-edit"></i> Apply</a>
+                <a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Official Government-Approved Loan Marketplace</h1>
+            <p>Connecting borrowers with trusted lenders for personal, business, and home loans with competitive rates and transparent terms.</p>
+            <div class="hero-buttons">
+                <a href="#apply" class="btn"><i class="fas fa-rocket"></i> Apply Now</a>
+                <a href="#lenders" class="btn btn-outline"><i class="fas fa-search"></i> Find Lenders</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <h2 class="section-title">Why Choose <span>LoanMarket Pro</span></h2>
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Government Approved</h3>
+                <p>Fully compliant with all financial regulations and government standards for lending practices.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-percent"></i>
+                <h3>Competitive Rates</h3>
+                <p>Access the most competitive interest rates from our network of verified lenders.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Rapid Processing</h3>
+                <p>Loan approvals in as little as 24 hours with our streamlined digital process.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section" id="calculator" style="background-color: var(--background);">
+        <h2 class="section-title">Loan <span>Calculator</span></h2>
+        <div class="calculator-container">
+            <div class="calculator-grid">
+                <div class="calculator-inputs">
+                    <div class="form-group">
+                        <label for="loanAmount">Loan Amount ($)</label>
+                        <input type="range" id="loanAmount" min="1000" max="100000" step="1000" value="25000" class="form-control">
+                        <div class="range-container">
+                            <span>1,000</span>
+                            <span class="range-value" id="loanAmountValue">25,000</span>
+                            <span>100,000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interestRate">Interest Rate (%)</label>
+                        <input type="range" id="interestRate" min="1" max="20" step="0.1" value="6.5" class="form-control">
+                        <div class="range-container">
+                            <span>1%</span>
+                            <span class="range-value" id="interestRateValue">6.5%</span>
+                            <span>20%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanTerm">Loan Term (months)</label>
+                        <input type="range" id="loanTerm" min="6" max="84" step="6" value="48" class="form-control">
+                        <div class="range-container">
+                            <span>6</span>
+                            <span class="range-value" id="loanTermValue">48</span>
+                            <span>84</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <h3>Your Monthly Payment</h3>
+                    <div class="result-value" id="monthlyPayment">$592.77</div>
+                    <p>Total Payment: <span id="totalPayment">$28,452.96</span></p>
+                    <p>Total Interest: <span id="totalInterest">$3,452.96</span></p>
+                    <button class="btn" style="margin-top: 2rem; background: white; color: var(--primary);">
+                        <i class="fas fa-paper-plane"></i> Apply Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loan Types Section -->
+    <section class="section" id="loans">
+        <h2 class="section-title">Our Loan <span>Products</span></h2>
+        <div class="loan-types">
+            <div class="loan-card">
+                <div class="loan-header">
+                    <h3>Personal Loan</h3>
+                </div>
+                <div class="loan-body">
+                    <h4>Up to $50,000</h4>
+                    <p>Flexible loans for any purpose with fixed monthly payments.</p>
+                    <ul class="loan-features">
+                        <li><i class="fas fa-check-circle"></i> Rates from 4.99% APR</li>
+                        <li><i class="fas fa-check-circle"></i> Terms 1-7 years</li>
+                        <li><i class="fas fa-check-circle"></i> No collateral required</li>
+                        <li><i class="fas fa-check-circle"></i> No prepayment fees</li>
+                    </ul>
+                    <a href="#apply" class="btn"><i class="fas fa-arrow-right"></i> Apply Now</a>
+                </div>
+            </div>
+            
+            <div class="loan-card">
+                <div class="loan-header">
+                    <h3>Business Loan</h3>
+                </div>
+                <div class="loan-body">
+                    <h4>Up to $500,000</h4>
+                    <p>Funding to start or expand your business with competitive terms.</p>
+                    <ul class="loan-features">
+                        <li><i class="fas fa-check-circle"></i> Rates from 5.49% APR</li>
+                        <li><i class="fas fa-check-circle"></i> Terms 1-10 years</li>
+                        <li><i class="fas fa-check-circle"></i> Fast approval</li>
+                        <li><i class="fas fa-check-circle"></i> Dedicated business advisor</li>
+                    </ul>
+                    <a href="#apply" class="btn"><i class="fas fa-arrow-right"></i> Apply Now</a>
+                </div>
+            </div>
+            
+            <div class="loan-card">
+                <div class="loan-header">
+                    <h3>Home Loan</h3>
+                </div>
+                <div class="loan-body">
+                    <h4>Up to $1,500,000</h4>
+                    <p>Mortgage solutions for buying, building or refinancing your home.</p>
+                    <ul class="loan-features">
+                        <li><i class="fas fa-check-circle"></i> Rates from 3.99% APR</li>
+                        <li><i class="fas fa-check-circle"></i> Terms 15-30 years</li>
+                        <li><i class="fas fa-check-circle"></i> Low down payment options</li>
+                        <li><i class="fas fa-check-circle"></i> Online application</li>
+                    </ul>
+                    <a href="#apply" class="btn"><i class="fas fa-arrow-right"></i> Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lenders Section -->
+    <section class="section lenders-section" id="lenders">
+        <h2 class="section-title">Our Verified <span>Lenders</span></h2>
+        <div class="lenders-grid">
+            <div class="lender-card">
+                <div class="lender-header">
+                    <div class="lender-avatar">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Capital Trust Bank</h3>
+                    <p>Premier Financial Institution</p>
+                </div>
+                <div class="lender-body">
+                    <p>With over 40 years of experience, Capital Trust Bank provides secure lending solutions with personalized service.</p>
+                    
+                    <div class="lender-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.2%</div>
+                            <div>Avg. Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24h</div>
+                            <div>Approval Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="lender-badge">
+                        <i class="fas fa-check"></i> Government Verified
+                    </div>
+                    
+                    <button class="btn" style="margin-top: 2rem; width: 100%;">
+                        <i class="fas fa-handshake"></i> Connect with Lender
+                    </button>
+                </div>
+            </div>
+            
+            <div class="lender-card">
+                <div class="lender-header">
+                    <div class="lender-avatar">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Growth Financial</h3>
+                    <p>Business & Personal Loans</p>
+                </div>
+                <div class="lender-body">
+                    <p>Specializing in business expansion loans and personal financial growth with flexible repayment options.</p>
+                    
+                    <div class="lender-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">5.1%</div>
+                            <div>Avg. Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12h</div>
+                            <div>Approval Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="lender-badge">
+                        <i class="fas fa-check"></i> Top Rated Lender
+                    </div>
+                    
+                    <button class="btn" style="margin-top: 2rem; width: 100%;">
+                        <i class="fas fa-handshake"></i> Connect with Lender
+                    </button>
+                </div>
+            </div>
+            
+            <div class="lender-card">
+                <div class="lender-header">
+                    <div class="lender-avatar">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Homestead Lending</h3>
+                    <p>Mortgage Specialists</p>
+                </div>
+                <div class="lender-body">
+                    <p>Experts in residential and commercial mortgages with competitive rates and exceptional customer service.</p>
+                    
+                    <div class="lender-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">3.9%</div>
+                            <div>Avg. Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">48h</div>
+                            <div>Approval Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="lender-badge">
+                        <i class="fas fa-check"></i> Preferred Partner
+                    </div>
+                    
+                    <button class="btn" style="margin-top: 2rem; width: 100%;">
+                        <i class="fas fa-handshake"></i> Connect with Lender
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="section" id="apply" style="background-color: var(--background);">
+        <h2 class="section-title">Loan <span>Application</span></h2>
+        <form class="application-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loanType">Loan Type</label>
+                    <select id="loanType" class="form-control">
+                        <option value="">Select loan type</option>
+                        <option value="personal">Personal Loan</option>
+                        <option value="business">Business Loan</option>
+                        <option value="home">Home Loan</option>
+                        <option value="auto">Auto Loan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loanAmountForm">Loan Amount ($)</label>
+                    <input type="number" id="loanAmountForm" class="form-control" placeholder="Enter desired loan amount">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="employment">Employment Status</label>
+                <select id="employment" class="form-control">
+                    <option value="">Select employment status</option>
+                    <option value="employed">Employed</option>
+                    <option value="self-employed">Self-Employed</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="retired">Retired</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="income">Annual Income ($)</label>
+                <input type="number" id="income" class="form-control" placeholder="Enter your annual income">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Loan Purpose</label>
+                <textarea id="message" class="form-control" rows="4" placeholder="Tell us about your loan purpose"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="color: white; margin-bottom: 1.5rem;">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>LoanMarket Pro</span>
+                </div>
+                <p>Government-approved loan marketplace connecting borrowers with trusted lenders since 2012.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#calculator"><i class="fas fa-chevron-right"></i> Calculator</a></li>
+                    <li><a href="#loans"><i class="fas fa-chevron-right"></i> Loan Options</a></li>
+                    <li><a href="#lenders"><i class="fas fa-chevron-right"></i> Lender Directory</a></li>
+                    <li><a href="#apply"><i class="fas fa-chevron-right"></i> Apply Now</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Legal Documents</h4>
+                <ul class="footer-links">
+                    <li><a href="#privacy-policy"><i class="fas fa-file-contract"></i> Privacy Policy</a></li>
+                    <li><a href="#terms"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                    <li><a href="#disclosures"><i class="fas fa-file-invoice"></i> Disclosures</a></li>
+                    <li><a href="#compliance"><i class="fas fa-balance-scale"></i> Compliance</a></li>
+                    <li><a href="#licenses"><i class="fas fa-id-card"></i> Licenses</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Financial District, NY 10001</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> (888) 555-1234</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@loanmarketpro.com</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8am-8pm EST</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 LoanMarket Pro. All rights reserved. NMLS ID: 1234567 | Equal Housing Lender
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Legal Documents Modal -->
+    <div class="modal" id="legalModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: white; width: 90%; max-width: 800px; max-height: 90vh; border-radius: 15px; overflow: hidden; position: relative;">
+            <div style="padding: 25px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="modalTitle" style="margin: 0;">Document Title</h3>
+                <button id="closeModal" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalContent" style="padding: 30px; overflow-y: auto; max-height: 70vh;">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Set initial theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // Loan Calculator
+        const loanAmount = document.getElementById('loanAmount');
+        const interestRate = document.getElementById('interestRate');
+        const loanTerm = document.getElementById('loanTerm');
+        const loanAmountValue = document.getElementById('loanAmountValue');
+        const interestRateValue = document.getElementById('interestRateValue');
+        const loanTermValue = document.getElementById('loanTermValue');
+        const monthlyPayment = document.getElementById('monthlyPayment');
+        const totalPayment = document.getElementById('totalPayment');
+        const totalInterest = document.getElementById('totalInterest');
+        
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2
+            }).format(value);
+        }
+        
+        function calculateLoan() {
+            const amount = parseFloat(loanAmount.value);
+            const rate = parseFloat(interestRate.value) / 100 / 12;
+            const term = parseFloat(loanTerm.value);
+            
+            // Calculate monthly payment
+            const x = Math.pow(1 + rate, term);
+            const monthly = (amount * x * rate) / (x - 1);
+            
+            if (isFinite(monthly)) {
+                monthlyPayment.textContent = formatCurrency(monthly);
+                const total = monthly * term;
+                totalPayment.textContent = formatCurrency(total);
+                totalInterest.textContent = formatCurrency(total - amount);
+            }
+        }
+        
+        loanAmount.addEventListener('input', () => {
+            loanAmountValue.textContent = new Intl.NumberFormat().format(loanAmount.value);
+            calculateLoan();
+        });
+        
+        interestRate.addEventListener('input', () => {
+            interestRateValue.textContent = interestRate.value + '%';
+            calculateLoan();
+        });
+        
+        loanTerm.addEventListener('input', () => {
+            loanTermValue.textContent = loanTerm.value;
+            calculateLoan();
+        });
+        
+        // Initialize calculator
+        calculateLoan();
+        
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Form Submission
+        const applicationForm = document.querySelector('.application-form');
+        
+        applicationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Create success message
+            const successMessage = document.createElement('div');
+            successMessage.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: var(--success); color: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 3000; display: flex; align-items: center; gap: 15px;">
+                    <i class="fas fa-check-circle" style="font-size: 1.8rem;"></i>
+                    <div>
+                        <h3 style="margin: 0 0 5px 0;">Application Submitted!</h3>
+                        <p style="margin: 0;">Our team will contact you shortly.</p>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(successMessage);
+            
+            // Reset form
+            applicationForm.reset();
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+                successMessage.remove();
+            }, 5000);
+        });
+        
+        // Legal Documents
+        const legalDocuments = {
+            "privacy-policy": {
+                title: "Privacy Policy",
+                content: `<h3>Privacy Policy</h3>
+                <p>Last updated: July 11, 2025</p>
+                
+                <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
+                
+                <h4>1. Information We Collect</h4>
+                <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+                
+                <h4>2. Use of Your Personal Data</h4>
+                <p>The Company may use Personal Data for the following purposes:</p>
+                <ul>
+                    <li>To provide and maintain our Service</li>
+                    <li>To manage Your Account</li>
+                    <li>For the performance of a contract</li>
+                    <li>To contact You</li>
+                    <li>To provide You with news, special offers and general information</li>
+                    <li>To manage Your requests</li>
+                    <li>For business transfers</li>
+                    <li>For other purposes</li>
+                </ul>
+                
+                <h4>3. Disclosure of Your Personal Data</h4>
+                <p>We may share your personal information in the following situations:</p>
+                <ul>
+                    <li>With Service Providers</li>
+                    <li>For business transfers</li>
+                    <li>With Affiliates</li>
+                    <li>With business partners</li>
+                    <li>With other users</li>
+                    <li>With Your consent</li>
+                </ul>`
+            },
+            "terms": {
+                title: "Terms of Service",
+                content: `<h3>Terms of Service</h3>
+                <p>Last updated: July 11, 2025</p>
+                
+                <p>Welcome to LoanMarket Pro! These Terms of Service govern your use of our website located at loanmarketpro.com and our services.</p>
+                
+                <h4>1. Acceptance of Terms</h4>
+                <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.</p>
+                
+                <h4>2. User Accounts</h4>
+                <p>When you create an account with us, you must provide us information that is accurate, complete, and current at all times.</p>
+                
+                <h4>3. Loan Application Process</h4>
+                <p>Our platform connects borrowers with lenders. We do not directly provide loans but facilitate the process.</p>
+                
+                <h4>4. Lender Relationships</h4>
+                <p>We are not a party to any loan agreements between borrowers and lenders. We simply provide a marketplace for connection.</p>
+                
+                <h4>5. Fees and Payments</h4>
+                <p>Our service is free for borrowers. Lenders may pay fees for access to our platform and borrower leads.</p>`
+            },
+            "disclosures": {
+                title: "Important Disclosures",
+                content: `<h3>Important Disclosures</h3>
+                
+                <h4>1. Loan Marketplace Disclosure</h4>
+                <p>LoanMarket Pro is a loan marketplace, not a direct lender. We connect borrowers with potential lenders in our network.</p>
+                
+                <h4>2. Lender Network Disclosure</h4>
+                <p>Our lender network consists of banks, credit unions, and licensed financial institutions. We do not guarantee loan approval.</p>
+                
+                <h4>3. Rate Disclosure</h4>
+                <p>Interest rates displayed on our platform are estimates only. Actual rates depend on lender evaluation of your creditworthiness.</p>
+                
+                <h4>4. Credit Check Authorization</h4>
+                <p>By submitting a loan application through our platform, you authorize lenders to perform credit checks as needed.</p>
+                
+                <h4>5. APR Disclosure</h4>
+                <p>Annual Percentage Rates (APR) displayed represent the lowest available rates for qualified borrowers.</p>`
+            },
+            "compliance": {
+                title: "Regulatory Compliance",
+                content: `<h3>Regulatory Compliance</h3>
+                
+                <h4>1. Licensing Information</h4>
+                <p>LoanMarket Pro operates under the following licenses:</p>
+                <ul>
+                    <li>NMLS ID: 1234567</li>
+                    <li>State License: NY-12345</li>
+                    <li>State License: CA-67890</li>
+                    <li>State License: FL-54321</li>
+                </ul>
+                
+                <h4>2. Equal Credit Opportunity Act</h4>
+                <p>We comply fully with the Equal Credit Opportunity Act (ECOA) which prohibits credit discrimination.</p>
+                
+                <h4>3. Truth in Lending Act</h4>
+                <p>All lenders in our network comply with the Truth in Lending Act (TILA) which requires clear disclosure of loan terms.</p>
+                
+                <h4>4. Fair Credit Reporting Act</h4>
+                <p>We adhere to the Fair Credit Reporting Act (FCRA) regarding consumer credit information.</p>
+                
+                <h4>5. State Regulations</h4>
+                <p>We comply with all state lending regulations in the jurisdictions where we operate.</p>`
+            },
+            "licenses": {
+                title: "Licenses & Certifications",
+                content: `<h3>Licenses & Certifications</h3>
+                
+                <h4>1. Nationwide Licensing</h4>
+                <p>LoanMarket Pro holds the Nationwide Multistate Licensing System (NMLS) ID: 1234567</p>
+                
+                <h4>2. State Licensing</h4>
+                <p>We are licensed to operate in all 50 states. Key state licenses include:</p>
+                <ul>
+                    <li>New York Department of Financial Services</li>
+                    <li>California Department of Business Oversight</li>
+                    <li>Texas Department of Savings and Mortgage Lending</li>
+                    <li>Florida Office of Financial Regulation</li>
+                </ul>
+                
+                <h4>3. Industry Certifications</h4>
+                <p>Our platform maintains the following certifications:</p>
+                <ul>
+                    <li>PCI DSS Compliance for secure payment processing</li>
+                    <li>SOC 2 Type II Certification for data security</li>
+                    <li>ISO 27001 Certification for information security</li>
+                </ul>
+                
+                <h4>4. Professional Affiliations</h4>
+                <p>We are proud members of:</p>
+                <ul>
+                    <li>American Financial Services Association (AFSA)</li>
+                    <li>Online Lenders Alliance (OLA)</li>
+                    <li>Consumer Financial Protection Bureau (CFPB) Participant</li>
+                </ul>`
+            }
+        };
+
+        // Handle legal document clicks
+        document.querySelectorAll('.footer-links a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const docId = this.getAttribute('href').substring(1);
+                
+                if (legalDocuments[docId]) {
+                    document.getElementById('modalTitle').textContent = legalDocuments[docId].title;
+                    document.getElementById('modalContent').innerHTML = legalDocuments[docId].content;
+                    document.getElementById('legalModal').style.display = 'flex';
+                }
+            });
+        });
+
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('legalModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside content
+        document.getElementById('legalModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
